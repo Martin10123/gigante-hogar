@@ -10,6 +10,8 @@ class Suscripcion extends Model
 {
     use HasFactory;
 
+    protected $table = 'suscripciones';
+
     protected $fillable = [
         'solicitante_id',
         'prestador_id',

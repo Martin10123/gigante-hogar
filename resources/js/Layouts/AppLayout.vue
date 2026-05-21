@@ -14,13 +14,19 @@ const showSidebar = ref(false);
 
 const userName = computed(() => page.props.auth?.user?.name ?? 'Usuario');
 
+const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
+
+const hasRole = (roleName) => userRoles.value.some((role) => role.name === roleName);
+
 const navigationItems = [
     { label: 'Dashboard', href: route('dashboard'), match: 'dashboard' },
     { label: 'Perfil', href: route('profile.roles.create'), match: 'profile.roles.create' },
-    { label: 'Prestadores', href: route('suscripciones.index'), match: 'suscripciones.index' },
-    { label: 'Mis citas', href: route('prestador.citas.index'), match: 'prestador.citas.index' },
-    { label: 'Citas disponibles', href: route('solicitante.citas.index'), match: 'solicitante.citas.index' },
+    { label: 'Prestadores', href: route('suscripciones.index'), match: 'suscripciones.index', roles: ['Solicitante'] },
+    { label: 'Mis citas', href: route('prestador.citas.index'), match: 'prestador.citas.index', roles: ['Prestador'] },
+    { label: 'Citas disponibles', href: route('solicitante.citas.index'), match: 'solicitante.citas.index', roles: ['Solicitante'] },
 ];
+
+const visibleNavigationItems = computed(() => navigationItems.filter((item) => !item.roles || item.roles.some((roleName) => hasRole(roleName))));
 
 const logout = () => {
     router.post(route('logout'));
@@ -44,7 +50,7 @@ const logout = () => {
 
                 <div class="mt-5 space-y-2">
                     <Link
-                        v-for="item in navigationItems"
+                        v-for="item in visibleNavigationItems"
                         :key="item.label"
                         :href="item.href"
                         class="block rounded-2xl px-4 py-3 text-sm font-medium transition"
@@ -70,7 +76,7 @@ const logout = () => {
                         <p class="px-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Navegación</p>
                         <div class="mt-3 space-y-2">
                             <Link
-                                v-for="item in navigationItems"
+                                v-for="item in visibleNavigationItems"
                                 :key="item.label"
                                 :href="item.href"
                                 class="block rounded-2xl px-4 py-3 text-sm font-medium transition"
