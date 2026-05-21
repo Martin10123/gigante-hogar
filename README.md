@@ -1,69 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Prueba Tecnica Gigante del Hogar
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicacion construida con Laravel, Inertia, Vue 3, PrimeVue y Tailwind. La idea es mostrar una solucion ordenada, modular y facil de evaluar, con autenticacion, asignacion de roles, suscripciones, citas y reserva transaccional de cupos.
 
-## About Laravel
+## Que incluye
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Autenticacion con Jetstream y Fortify.
+- Asignacion de perfil para uno o dos roles.
+- Vista de dashboard con resumen y accesos rapidos.
+- Flujo de prestadores para crear y revisar citas.
+- Flujo de solicitantes para suscribirse y reservar cupos.
+- Repositorios para separar acceso a datos y reglas de negocio.
+- Interfaz minimalista, clara y responsive.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologias
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel
+- Vue 3
+- Inertia
+- PrimeVue
+- Tailwind CSS
+- MySQL
 
-## Demo accounts
+## Requisitos
 
-The project seeds a small demo dataset for quick evaluation:
+Antes de ejecutar el proyecto, confirma que tienes instalado lo siguiente:
+
+- PHP y Composer.
+- Node.js y npm.
+- MySQL o el motor de base de datos que uses localmente.
+- Variables de entorno configuradas en `.env`.
+
+## Paso 1: Instalar dependencias
+
+Primero descarga las dependencias de backend y frontend. Este paso prepara el proyecto para que Laravel pueda correr y para que Vite pueda compilar los componentes Vue.
+
+```bash
+composer install
+npm install
+```
+
+## Paso 2: Configurar el archivo `.env`
+
+Duplica el archivo de ejemplo y ajusta los datos de tu base de datos. Aqui es donde Laravel toma la conexion, la clave de la aplicacion y otras variables del entorno.
+
+```bash
+cp .env.example .env
+```
+
+Luego revisa al menos estos valores:
+
+- `APP_NAME`
+- `APP_URL`
+- `DB_CONNECTION`
+- `DB_HOST`
+- `DB_PORT`
+- `DB_DATABASE`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+
+## Paso 3: Generar la clave de la aplicacion
+
+Laravel necesita una clave unica para cifrado y sesiones. Este paso solo se hace una vez por instalacion.
+
+```bash
+php artisan key:generate
+```
+
+## Paso 4: Crear la base de datos y ejecutar migraciones
+
+Las migraciones crean las tablas del sistema: usuarios, roles, suscripciones, citas, cupos y las tablas base que Laravel necesita para trabajar.
+
+```bash
+php artisan migrate
+```
+
+## Paso 5: Cargar datos demo
+
+El seeder incluye usuarios de ejemplo, roles, citas, suscripciones y cupos. Esto sirve para revisar el flujo completo sin tener que crear todo manualmente.
+
+```bash
+php artisan db:seed
+```
+
+## Paso 6: Compilar los assets frontend
+
+Este paso construye la interfaz Vue y deja listo el bundle de produccion. Tambien lo puedes repetir cuando hagas cambios en los componentes.
+
+```bash
+npm run build
+```
+
+Durante desarrollo, en vez de build puedes dejar Vite en modo observacion:
+
+```bash
+npm run dev
+```
+
+## Paso 7: Levantar el servidor
+
+Con la base de datos y los assets listos, inicia Laravel para abrir la aplicacion en el navegador.
+
+```bash
+php artisan serve
+```
+
+## Paso 8: Ingresar y probar el flujo
+
+Abre la aplicacion, registra un usuario nuevo o usa los usuarios demo. Luego asigna el perfil, revisa el dashboard y prueba los flujos de prestador y solicitante.
+
+## Cuentas demo
+
+La base de datos de ejemplo crea estas cuentas para probar el sistema rapidamente:
 
 - `prestador.demo@gigantedelhogar.com.co` / `password` - Prestador
 - `solicitante.demo@gigantedelhogar.com.co` / `password` - Solicitante
 - `mixto.demo@gigantedelhogar.com.co` / `password` - Prestador + Solicitante
 
-These accounts are meant for local review only.
+## Flujo resumido
 
-## Learning Laravel
+1. El usuario entra al sistema y se autentica.
+2. Si no tiene roles asignados, se le lleva a la pantalla de perfil.
+3. Segun el rol, el menu muestra solo las opciones que aplican.
+4. El prestador crea citas y administra cupos disponibles.
+5. El solicitante se suscribe a prestadores y reserva cupos.
+6. La reserva valida suscripcion, disponibilidad y duplicados dentro de una transaccion.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Estructura general
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- `app/Repositories`: acceso a datos y reglas del dominio.
+- `app/Http/Controllers`: coordinacion de cada flujo.
+- `resources/js/Pages`: pantallas Inertia por modulo.
+- `resources/js/Layouts`: layout principal de la aplicacion.
+- `database/seeders`: datos demo para evaluacion rapida.
 
-## Laravel Sponsors
+## Notas de ejecucion
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Si trabajas en local y la base de datos esta en tu maquina, revisa que `DB_HOST` apunte al host correcto.
+- Si cambias componentes Vue, vuelve a ejecutar `npm run build` o deja `npm run dev` activo.
+- Si necesitas regenerar datos demo, puedes volver a correr `php artisan db:seed`.
 
-### Premium Partners
+## Licencia
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Este proyecto se entrega con fines de prueba tecnica.
