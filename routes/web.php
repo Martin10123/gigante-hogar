@@ -1,21 +1,18 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Prestador\CitaController;
 use App\Http\Controllers\Solicitante\CupoController;
 use App\Http\Controllers\Solicitante\SuscripcionController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Auth::check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('register');
 });
 
 Route::middleware([

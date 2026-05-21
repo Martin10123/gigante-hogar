@@ -8,8 +8,23 @@ use Illuminate\Support\Collection;
 
 class RoleRepository implements RoleRepositoryInterface
 {
+	private const DEFAULT_ROLES = [
+		[
+			'name' => 'Prestador',
+			'description' => 'Crea citas y administra sus cupos',
+		],
+		[
+			'name' => 'Solicitante',
+			'description' => 'Se suscribe a prestadores y reserva cupos',
+		],
+	];
+
 	public function all(): Collection
 	{
+		foreach (self::DEFAULT_ROLES as $roleData) {
+			Role::firstOrCreate(['name' => $roleData['name']], ['description' => $roleData['description']]);
+		}
+
 		return Role::query()->orderBy('name')->get();
 	}
 
