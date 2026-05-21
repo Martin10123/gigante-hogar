@@ -38,39 +38,39 @@ const submit = () => {
 
     <AppLayout title="Asignar perfil">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-base font-semibold tracking-tight text-slate-900">
                 Asignar perfil
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
-                    <p class="text-sm text-gray-600 mb-6">
+        <div class="py-6 sm:py-8">
+            <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                    <p class="mb-4 text-xs uppercase tracking-[0.18em] text-slate-500">
                         Selecciona uno o ambos perfiles para habilitar las funciones del sistema.
                     </p>
 
-                    <form @submit.prevent="submit" class="space-y-4">
-                        <div v-for="role in roles" :key="role.id" class="border rounded-lg p-4">
+                    <form @submit.prevent="submit" class="space-y-3">
+                        <div v-for="role in roles" :key="role.id" class="rounded-xl border border-slate-200 p-3.5">
                             <label class="flex items-start gap-3 cursor-pointer">
                                 <input
                                     type="checkbox"
-                                    class="mt-1"
+                                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400"
                                     :checked="form.roles.includes(role.id)"
                                     @change="toggleRole(role.id)"
                                 />
 
                                 <div>
-                                    <div class="font-medium text-gray-900">{{ role.name }}</div>
-                                    <div class="text-sm text-gray-500">{{ role.description }}</div>
+                                    <div class="text-sm font-medium text-slate-900">{{ role.name }}</div>
+                                    <div class="text-xs text-slate-500">{{ role.description }}</div>
                                 </div>
                             </label>
                         </div>
 
-                        <InputError class="mt-2" :message="form.errors.roles" />
+                        <InputError class="mt-1" :message="form.errors.roles" />
 
                         <div class="flex justify-end">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            <PrimaryButton class="!text-xs" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 Guardar perfil
                             </PrimaryButton>
                         </div>

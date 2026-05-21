@@ -39,22 +39,22 @@ const logout = () => {
         <Banner />
 
         <div class="min-h-screen bg-slate-50 text-slate-900">
-            <Sidebar v-model:visible="showSidebar" class="w-[18rem] bg-white text-slate-900 lg:hidden" dismissable>
-                <div class="flex items-center gap-3 border-b border-slate-200 pb-5">
-                    <div class="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-700 font-bold">GC</div>
+            <Sidebar v-model:visible="showSidebar" class="w-[16rem] bg-white text-slate-900 lg:hidden" dismissable>
+                <div class="flex items-center gap-2.5 border-b border-slate-200 pb-4">
+                    <div class="grid h-9 w-9 place-items-center rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">GC</div>
                     <div>
-                        <p class="text-sm text-slate-500">Sistema de citas</p>
-                        <h1 class="text-lg font-semibold text-slate-900">Gigante del Hogar</h1>
+                        <p class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Sistema de citas</p>
+                        <h1 class="text-sm font-semibold text-slate-900">Gigante del Hogar</h1>
                     </div>
                 </div>
 
-                <div class="mt-5 space-y-2">
+                <div class="mt-4 space-y-1.5">
                     <Link
                         v-for="item in visibleNavigationItems"
                         :key="item.label"
                         :href="item.href"
-                        class="block rounded-2xl px-4 py-3 text-sm font-medium transition"
-                        :class="route().current(item.match) ? 'bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'"
+                        class="block rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition"
+                        :class="route().current(item.match) ? 'bg-slate-100 text-slate-900 ring-1 ring-slate-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
                         @click="showSidebar = false"
                     >
                         {{ item.label }}
@@ -63,46 +63,46 @@ const logout = () => {
             </Sidebar>
 
             <div class="flex min-h-screen">
-                <aside class="hidden lg:flex w-80 flex-col border-r border-slate-200 bg-white backdrop-blur-xl">
-                    <div class="flex items-center gap-3 border-b border-slate-200 px-6 py-6">
-                        <div class="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-700 font-bold">GC</div>
+                <aside class="hidden lg:flex w-64 flex-col border-r border-slate-200 bg-white backdrop-blur-xl">
+                    <div class="flex items-center gap-2.5 border-b border-slate-200 px-5 py-5">
+                        <div class="grid h-9 w-9 place-items-center rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">GC</div>
                         <div>
-                            <p class="text-sm text-slate-500">Sistema de citas</p>
-                            <h1 class="text-lg font-semibold text-slate-900">Gigante del Hogar</h1>
+                            <p class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Sistema de citas</p>
+                            <h1 class="text-sm font-semibold text-slate-900">Gigante del Hogar</h1>
                         </div>
                     </div>
 
-                    <div class="px-4 py-4">
-                        <p class="px-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Navegación</p>
-                        <div class="mt-3 space-y-2">
+                    <div class="px-3 py-3">
+                        <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">Navegación</p>
+                        <div class="mt-2.5 space-y-1.5">
                             <Link
                                 v-for="item in visibleNavigationItems"
                                 :key="item.label"
                                 :href="item.href"
-                                class="block rounded-2xl px-4 py-3 text-sm font-medium transition"
-                                :class="route().current(item.match) ? 'bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'"
+                                class="block rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition"
+                                :class="route().current(item.match) ? 'bg-slate-100 text-slate-900 ring-1 ring-slate-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
                             >
                                 {{ item.label }}
                             </Link>
                         </div>
                     </div>
 
-                    <div class="mt-auto p-4">
-                        <div class="rounded-3xl border border-slate-200 bg-gradient-to-br from-cyan-50 to-indigo-50 p-4">
-                            <p class="mt-1 text-lg font-semibold text-slate-900">{{ userName }}</p>
-                            <p class="text-sm text-slate-500">Bienvenido al panel.</p>
+                    <div class="mt-auto p-3">
+                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                            <p class="text-sm font-semibold text-slate-900">{{ userName }}</p>
+                            <p class="text-[12px] text-slate-500">Sesión activa</p>
                         </div>
                     </div>
                 </aside>
 
                 <div class="flex min-w-0 flex-1 flex-col">
                     <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
-                        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+                        <div class="flex items-center justify-between px-4 py-3 sm:px-5 lg:px-6">
                             <div class="flex items-center gap-3">
-                                <button class="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm lg:hidden" @click="showSidebar = true">☰</button>
+                                <button class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm lg:hidden" @click="showSidebar = true">☰</button>
                                 <div>
-                                    <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Panel</p>
-                                    <h2 class="text-lg font-semibold text-slate-900">{{ title }}</h2>
+                                    <p class="text-[11px] uppercase tracking-[0.25em] text-slate-400">Panel</p>
+                                    <h2 class="text-base font-semibold text-slate-900">{{ title }}</h2>
                                 </div>
                             </div>
 
@@ -112,12 +112,12 @@ const logout = () => {
                         </div>
                     </header>
 
-                    <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
-                        <div v-if="$slots.header" class="mb-6 rounded-3xl border border-slate-200 bg-white px-6 py-5 shadow-sm">
+                    <main class="flex-1 px-4 py-5 sm:px-5 lg:px-6">
+                        <div v-if="$slots.header" class="mb-4 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
                             <slot name="header" />
                         </div>
 
-                        <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+                        <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                             <slot />
                         </div>
                     </main>
