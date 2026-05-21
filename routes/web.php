@@ -4,9 +4,9 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Prestador\CitaController;
 use App\Http\Controllers\Solicitante\CupoController;
 use App\Http\Controllers\Solicitante\SuscripcionController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -24,11 +24,19 @@ Route::middleware([
     Route::post('/perfil', [ProfileController::class, 'store'])->name('profile.roles.store');
 
     Route::get('/dashboard', function (Request $request) {
-        if (! $request->user()->roles()->exists()) {
+        $user = $request->user()->loadMissing('roles');
+
+        if (! $user->roles()->exists()) {
             return redirect()->route('profile.roles.create');
         }
 
-        return Inertia::render('Dashboard');
+        return Inertia::render('Dashboard', [
+            'stats' => [
+                'citas_creadas' => $user->hasRole('Prestador') ? $user->citasComoPrestador()->count() : 0,
+                'prestadores_suscritos' => $user->hasRole('Solicitante') ? $user->suscripcionesComoSolicitante()->count() : 0,
+                'cupos_tomados' => $user->hasRole('Solicitante') ? $user->cuposTomados()->count() : 0,
+            ],
+        ]);
     })->name('dashboard');
 
     Route::get('/solicitante/prestadores', [SuscripcionController::class, 'index'])->name('suscripciones.index');
